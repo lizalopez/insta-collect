@@ -1,0 +1,23 @@
+<!-- Content -->
+
+<div class="albumview-container">
+  <h2 class="page-title">{{name}}</h2>
+  <h4 class="page-title">#{{tag}}</h4>
+
+  <ul>
+    <li class="instagram-li li-add" ng-repeat="item in images">
+      <div class="row">
+          <div class="col-xs-4 col-xs-offset-2">
+            <img class="addItemImage" src="{{item.image}}" alt="{{item.name}}">
+          </div>
+          <div class="col-xs-6">
+            <p><strong>#{{item.username}}</strong></p>
+            <p>{{item.timeStamp}}</p>
+            <p>{{item.tags}}</p>
+            <p>{{item.likes}}</p>
+            <a href="{{item.url}}" target="_blank">Link</a>
+          </div>
+      </div>
+    </li>
+  </ul>
+</div>

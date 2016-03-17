@@ -1,0 +1,26 @@
+{
+  "name": "insta-collect",
+  "description": "An instagram collection app",
+  "main": "client/index.html",
+  "authors": [
+    "Liza Lopez"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/lizalopez/insta-collect",
+  "moduleType": [],
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.2.1",
+    "angular": "~1.5.0",
+    "angular-route": "~1.4.8",
+    "angular-animate": "~1.4.8",
+    "underscore": "~1.8.3"
+  }
+}

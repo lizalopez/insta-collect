@@ -1,0 +1,32 @@
+{
+  "name": "insta-collect",
+  "version": "1.0.0",
+  "description": "An instagram collection app",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server/server.js",
+    "postinstall": "bower install"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lizalopez/insta-collect.git"
+  },
+  "author": "Liza Lopez",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lizalopez/insta-collect/issues"
+  },
+  "homepage": "https://github.com/lizalopez/insta-collect#readme",
+  "dependencies": {
+    "angular-bootstrap-datetimepicker": "^1.0.1",
+    "bluebird": "^3.3.4",
+    "body-parser": "^1.15.0",
+    "bower": "^1.7.7",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "nodemon": "^1.9.1",
+    "pg": "^4.5.1",
+    "request": "^2.69.0"
+  }
+}

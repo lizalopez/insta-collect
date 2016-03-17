@@ -1,0 +1,94 @@
+<!-- startAlbum form -->
+<div class="creation-container">
+  <div class="col-xs-3 text-center left-column">
+
+    <div class="ShowForm" ng-show="!formCompleted">
+    <h4>Create Your Collection</h4>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="inputEmail3" class="col-sm-4 control-label">Name</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" placeholder="Spring Leisure" ng-model="formData.albumName">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword3" class="col-sm-4 control-label">#hashtag</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" id="inputPassword3" placeholder="matcha" ng-model="formData.hashtag">
+          </div>
+        </div>
+        <div class="form-group">
+<!--        Drop Down Calendar
+            <div class="dropdown">
+            <a  class="dropdown-toggle" id="dropdown1" role="button" data-toggle="dropdown" data-target="#" href="#">Click here to show calendar</a>
+            <ul class="dropdown-menu" role="menu">
+                <datetimepicker data-ng-model="data.dateDropDownLink" data-datetimepicker-config="{ dropdownSelector: '#dropdown1' }"/>
+            </ul>
+        </div> -->
+          <label for="inputPassword3" class="col-sm-4 control-label">Start Date</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" id="inputPassword3" placeholder="3/1/2016" ng-model="formData.startDate">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputPassword3" class="col-sm-4 control-label">End Date</label>
+          <div class="col-sm-7">
+            <input type="text" class="form-control" id="inputPassword3" placeholder="3/10/2016" ng-model="formData.endDate">
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="col-sm-offset-2 col-sm-10">
+            <button ng-click="startAlbum()" type="submit" class="btn btn-success">Start Collecting</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+<!-- Items to Add to Collection -->
+    <div class="albumDetails" ng-show="!!formCompleted">
+      <h2>{{formData.albumName}}</h2>
+      <h4>#{{formData.hashtag}}</h4>
+      <div class="imagelist-left">
+        <ul class="itemsToAddDisplayed">
+          <li class="instagram-li li-remove" ng-repeat="image in album track by $index">
+            <div class="row">
+              <img class="addItemToAlbum" src="{{image.image}}" alt="">
+ <!--              <p><strong>{{image.timeStamp}}</strong></p>
+              <p>{{image.username}}</p>
+              <p>{{image.likes}}</p> -->
+              <span id="remove-button" class="glyphicon glyphicon-remove" ng-click="removeFromAlbum()"></span>
+            </div>
+          </li>
+        </ul>
+      </div>
+        <button class="btn btn-success" ng-click="saveAlbum()">Save Gallery!</button>
+    </div>
+
+
+<!-- Image Results from Instagram -->
+  </div>
+  <div class="selection-list col-xs-9 text-center right-column" ng-show="formCompleted">
+    <h2>Images</h2>
+    <div class="imagelist-right imageResults" >
+
+    <span class="results instagram-li li-add" ng-repeat="item in images | orderBy:'-likes' | filter:search">
+      <div class="results-img" ng-click="addToAlbum()">
+        <img class="addItemImage" src="{{item.image}}" alt="">
+        <p>{{formatDate()}}</p>
+        <a href="#" ng-click="showDetails = ! showDetails"></a> 
+        <div class="procedure-details" ng-class="{ 'hidden': ! showDetails }">
+          <span class="glyphicon glyphicon-thumbs-up">I show up when your checkbox is checked.</span> 
+          <p> 
+              Date : {{item.tags}}  <br>
+              Filter :{{ item.filter}} <br>
+              Likes: {{ item.comments}} <br>
+              <a href='{{item.likes}' target="_blank"> Go to Instagram</a>
+              <button class="btn btn-success" ng-click="addToAlbum()">Add</button>
+              <a href="{{item.sourceURL}}"></a> 
+          </p>
+        </div>
+      </div>
+        </div>
+    </div>
+  </span>
+</div>

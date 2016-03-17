@@ -1,0 +1,29 @@
+
+
+
+<!-- navigation -->
+
+
+<!-- content -->
+<h1 class="page-title">Fresh Galleries</h1>
+  <input type="text" ng-model="filter.name" id="landing-filter" placeholder="Search By Name">
+  <div class="myAlbums" style="background-color: white">
+    <span class="album" ng-repeat="item in imageResults | filter:filter" ng-click="viewAlbum($index)">
+      <div class="album-img">
+        <img class="item-img" src="{{item.image}}" alt="image of #{{item.tag}}">
+      </div>
+      <div class="album-info">
+        <p class="glyphicon glyphicon-play-circle play-icon"></p>
+        <p class="item-name">{{item.name}}</p>
+        <p class="item-destination">{{item.timeStamp}}, {{item.likes}}</p>
+      </div>
+    </span>
+  </div>  
+
+
+
+
+
+
+
+

@@ -1,0 +1,151 @@
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.navbar-brand {
+  font-family: 'Courgette', cursive;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+h4.ng-binding {
+  color: #28D5AB;
+}
+
+h2.ng-binding {
+  color: #0E76A2;
+  font-family: 'Courgette', cursive;
+  font-weight: 400;
+}
+
+div.imageResults {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+ul.itemsToAddDisplayed {
+  display: inline-table;
+}
+
+span.results {
+  position: relative;
+  cursor: pointer;
+  top: 0;
+  display: inline-block;
+  /*border: 1px solid black;*/
+  height: 235px;
+  width: 190px;
+  vertical-align: top;
+  /*padding: 15px;*/
+  margin: 10px;
+  /*transition: all .2s ease-in-out;*/
+  transition: background-color 1s ease;
+  background-color: white;
+  transition: color 0.6s ease;
+  color: #595959;
+}
+
+div.results-img {
+  height:100%;
+  width: 100%;
+}
+
+.addItemImage {
+  border: 3px solid #595959;
+  height: auto;
+  width: 100%;
+  float: left;
+}
+/*
+Attempt to show image details on click
+.animate-show {
+  line-height: 20px;
+  opacity: 1;
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}
+
+.animate-show.ng-hide-add, .animate-show.ng-hide-remove {
+  transition: all linear 0.5s;
+}
+
+.animate-show.ng-hide {
+  line-height: 0;
+  opacity: 0;
+  padding: 0 10px;
+}*/
+/*
+.check-element {
+  padding: 10px;
+  border: 1px solid black;
+  background: white;
+}*/
+
+.procedure-details {
+    max-height: 80px;
+    transition: .8s;
+    overflow: hidden;
+}
+
+.procedure-details.hidden {
+    max-height: 0;
+}
+
+.imagelist-right {
+  border: 12px solid rgba(102, 130, 197, 0.32);
+  height: 115vh;
+  overflow: auto;
+}
+
+.imagelist-left {
+  height: 75vh;
+  overflow: auto;
+}
+
+.addItemToAlbum {
+  border: 3px solid black;
+  height: 75px;
+  width: 75px;
+  float: left;
+}
+
+div.albumview-container {
+  padding-left: 5%;
+}
+
+li.instagram-li {
+  position: relative;
+  list-style: none;
+  transition: background-color 1s ease;
+  transition: color 0.6s ease;
+}
+li.li-add:hover {
+  background-color: gray;
+  color: white;
+  cursor: pointer;
+}
+#remove-button {
+  margin-left: 5px;
+  color: #A20E26;
+  font-size: 15px;
+  cursor: pointer;
+  right: 3px;
+  top: 3px;
+}
+
+button.btn-success {
+  background-color: #28D5AA;
+}
+.navbar-default {
+  background-color: rgba(40, 213, 170, 0.29);
+  border-color: rgba(40, 213, 170, 0.29);
+}
+
+div.footer {
+  bottom: 0;
+  position: fixed;
+  left: 50%
+}

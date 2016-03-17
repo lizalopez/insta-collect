@@ -1,0 +1,90 @@
+<!doctype html>
+<html ng-app="app">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>InstaCollect</title>
+    <link rel="stylesheet" href="../lib/bootstrap/dist/css/bootstrap.css"/>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href='https://fonts.googleapis.com/css?family=Courgette|Lato:400,700' rel='stylesheet' type='text/css'>
+
+
+  </head>
+
+  <body>
+    <!-- navigation -->
+    <nav class="navbar navbar-default">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/#landing">InstaCollect</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li data-ng-class="{'active':getClass('/myAlbums')}"><a href="#/myAlbums">My Galleries</a></li>
+          </ul>
+          <ul class="nav navbar-nav">
+            <li data-ng-class="{'active':getClass('/create')}"><a href="#/create">Create Gallery</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/logout">Logout</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+    <!-- <h2 class="text-center">InstaCollect</h2>
+    <a href="/#create" class="text-center">Make an Album</a>
+
+    <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="brand " href="#/">
+                    <img src="" alt="logo"> InstaCollect
+                </a>
+                data-ng-controller="NavbarController"
+                <ul class="nav nav-pills" >
+                    <li data-ng-class="{'active':getClass('/customers')}"><a href="/#myAlbums">My Galleries</a></li>
+                    <li data-ng-class="{'active':getClass('/orders')}"><a href="#/create">Create Gallery</a></li>
+                </ul>
+            </div>
+        </div>
+    </div> -->
+
+    <div ng-view="">
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p class="text-center"><span class="glyphicon glyphicon-check"></span> Created by Liza Lopez</p>
+    </div>
+  </body>
+
+  
+
+  <!-- dependencies -->
+  <script src="lib/jquery/dist/jquery.js"></script>
+  <script src="lib/underscore/underscore.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.min.js"></script>
+  <script src="lib/angular-route/angular-route.min.js"></script>
+  <script src="lib/angular-animate/angular-animate.min.js"></script>
+  <script src="lib/angular-bootstrap/ui-bootstrap.min.js"></script>
+  <script src="lib/date.js"></script>
+
+  <!-- scripts -->
+  <script src="app/app.js"></script>
+  <script src="app/controllers/searchController.js"></script>
+  <script src="app/controllers/landingController.js"></script>
+  <script src="app/controllers/createAlbumController.js"></script>
+  <script src="app/controllers/myAlbumsController.js"></script>
+  <script src="app/controllers/albumViewController.js"></script>
+  <script src="app/controllers/authController.js"></script>
+  <script src="app/services/services.js"></script>
+
+</html>

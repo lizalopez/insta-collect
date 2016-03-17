@@ -1,0 +1,17 @@
+<!-- Content -->
+  <h2 class="page-title">Galleries</h2>
+  <input type="text" ng-model="filter.name" id="landing-filter" placeholder="Search By Name">
+  <div class="imagelist-right imageResults" style="background-color: white">
+    <span class="results instagram-li" ng-repeat="item in imageResults | filter:filter" ng-click="viewAlbum($index)">
+      <div class="results-img">
+        <img class="addItemImage" src="{{item.albumimage}}">
+        <span class="item-name">{{item.name}}</span> 
+      </div>
+        <!-- <div class="itemsToAddDisplayed"> -->
+        <!-- </div> -->
+        <!-- <div class="album-info"> -->
+          <!-- <p class="glyphicon glyphicon-play-circle play-icon"></p> -->
+          <!-- <p class="item-name">{{item.name}}</p> -->
+          <!-- <p class="item-destination">{{item.timeStamp}}</p> -->
+    </span>
+  </div>  
