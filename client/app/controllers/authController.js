@@ -17,25 +17,6 @@ angular.module('app.auth', ['app.services'])
           $scope.clearFields();
           $scope.error = message;
     })
-    // return $http.post('/login', user)
-    //   .then(function(result){
-    //     console.log("Auth Login Hit")
-    //     if(result.data){
-    //       console.log("login results", result)
-    //       console.log("Username", user.username)
-    //       $scope.getUser(user.username)
-    //       .then(function() {
-    //         auth.clearPassword();
-    //         $location.path("/myAlbums");
-    //       });
-    //     } else {
-    //       //stay on login
-    //       var loginError = "Please Try Again"
-    //       return loginError;
-    //     }
-    //   })
-    // $location.path('/');
-
   };
   $scope.getuser = function(username) {
     return $http.get('user/'+ username)
