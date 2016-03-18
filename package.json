@@ -23,10 +23,19 @@
     "bluebird": "^3.3.4",
     "body-parser": "^1.15.0",
     "bower": "^1.7.7",
+    "browser-sync": "^2.11.1",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "gulp-nodemon": "^2.0.6",
     "nodemon": "^1.9.1",
     "pg": "^4.5.1",
     "request": "^2.69.0"
+  },
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-jshint": "^2.0.0",
+    "gulp-util": "^3.0.7",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0"
   }
 }

@@ -4,13 +4,14 @@ var Promise = require('bluebird');
 
 var formatDate = function(d) {
   d = Number(d* 1000);
-  date = new Date(d)
+  date = new Date(d);
   var dd = date.getDate(); 
   var mm = date.getMonth()+1;
   var yyyy = date.getFullYear(); 
-  if(dd<10){dd='0'+dd} 
-  if(mm<10){mm='0'+mm};
-  return d =  mm + '/'+ dd+'/'+ yyyy+'';
+  if(dd<10){dd='0'+dd;} 
+  if(mm<10){mm='0'+mm;}
+  d =  mm + '/'+ dd+'/'+ yyyy+'';
+  return d;
 };
 
 
@@ -37,8 +38,8 @@ module.exports = {
   paginateAPI: function(currentDate, startDate, endDate, olderDataUrl) {
     var paginateResults;
     console.log("PAGINATTING!", "CURRENTDATE--endDate---startDate-->", currentDate, endDate, startDate, 'OLDERDATAurl----->', olderDataUrl);
-      request(olderDataUrl, function(err, response, body) {
-        var body= JSON.parse(body);
+      request(olderDataUrl, function(err, response, paginateBody) {
+        var body= JSON.parse(paginateBody);
         if (currentDate > endDate) {
         console.log('have not reached endDate, need to keep paginating to olderURL');
         //have not reached endDate, need to keep paginating to olderURL
@@ -61,7 +62,7 @@ module.exports = {
           paginatePromise.then(function(filteredResults) {
             paginateResults = filteredResults;
             return paginateResults;
-          })
+          });
         } 
       });
   },
@@ -86,5 +87,5 @@ module.exports = {
       
     // module.exports.paginateAPI(apiInitialData.timeStamp, startDate, apiInitialData.next_url);
   }
-}
+};
 

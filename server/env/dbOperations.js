@@ -36,10 +36,8 @@ module.exports = {
   'sourceURL varchar(255),' +
   'albumid int references Albums(id)' +
   ')',
-
-
     //photos
     //username
     //native link
     //play vdeos
-}
+};

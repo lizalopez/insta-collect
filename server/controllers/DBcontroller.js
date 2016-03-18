@@ -35,7 +35,7 @@ module.exports = {
     name: req.body.name,
     tag: req.body.tag,
     albumImage: req.body.albumImage
-  }
+  };
   // console.log('ALBUM TO CREATE >>>> ', album);
   var createAlbumQuery = client.query("INSERT INTO Albums (name, tag, albumImage) VALUES ('"+album.name+"','"+album.tag+"','"+album.albumImage+"') RETURNING ID;", function(err, data) {
     if (err) {
@@ -172,4 +172,4 @@ module.exports = {
       }
     });
   }
-}
+};
