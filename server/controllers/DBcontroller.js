@@ -2,7 +2,6 @@ var pg = require('pg');
 var connectionString = process.env.DATABASE_URL || 'postgresql://localhost/instacollect';
 var Promise = require('bluebird');
 var request = require('request');
-var keys = require('../env/keys');
 // var _ = require('lodash')
 
 var imagesInDBToAddToAlbum = [];
