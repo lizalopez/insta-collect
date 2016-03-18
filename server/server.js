@@ -10,7 +10,7 @@ var port = process.env.PORT || 8080;
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-app.use(session({secret: 'P1xl33'}));
+// app.use(session({secret: 'P1xl33'}));
 
 require('./controllers/routes.js')(app, express);
 // require('./controllers/dbroutes.js')(app, express);
