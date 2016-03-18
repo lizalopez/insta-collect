@@ -1,5 +1,4 @@
 var request = require('request');
-var keys = require('../env/keys');
 var Promise = require('bluebird');
 
 var formatDate = function(d) {
@@ -73,7 +72,7 @@ module.exports = {
     var endDate = req.query.endDate;
     var itemsInDateRange = [];
 
-      return request('https://api.instagram.com/v1/tags/'+tag+'/media/recent?access_token='+keys.token, function(err, response, body) {
+      return request('https://api.instagram.com/v1/tags/'+tag+'/media/recent?access_token='+process.env.APITOKEN, function(err, response, body) {
           var metaResults = JSON.parse(body);
           var imageResults = metaResults.data;
           var filteredResults= filterImageData(imageResults);
