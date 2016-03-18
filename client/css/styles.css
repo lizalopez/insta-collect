@@ -100,7 +100,7 @@ Attempt to show image details on click
 
 .imagelist-right {
   border: 12px solid rgba(102, 130, 197, 0.32);
-  height: 115vh;
+  height: 100vh;
   overflow: auto;
 }
 

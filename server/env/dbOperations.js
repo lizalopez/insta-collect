@@ -16,7 +16,7 @@ module.exports = {
     'id SERIAL NOT NULL PRIMARY KEY,' +
     'name VARCHAR(255),' +
     'tag VARCHAR(255),' +
-    "albumImage varchar(255) DEFAULT 'http://lh4.ggpht.com/iEyogFzb2gMbVBLSjgPL0qSETW76pRG1hQYRjLOnmU4JDgMdc65v53OZ3WWSvuRO_kY'," +
+    'albumImage varchar(255),' +
     'images varchar(255) [],' +
     'userid int references Users(id)' +
     ')',

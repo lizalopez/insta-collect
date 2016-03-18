@@ -67,28 +67,28 @@
 
 <!-- Image Results from Instagram -->
   </div>
-  <div class="selection-list col-xs-9 text-center right-column" ng-show="formCompleted">
+    <div class="selection-list col-xs-9 text-center right-column" ng-show="formCompleted">
     <h2>Images</h2>
-    <div class="imagelist-right imageResults" >
-
-    <span class="results instagram-li li-add" ng-repeat="item in images | orderBy:'-likes' | filter:search">
-      <div class="results-img" ng-click="addToAlbum()">
-        <img class="addItemImage" src="{{item.image}}" alt="">
-        <p>{{formatDate()}}</p>
-        <a href="#" ng-click="showDetails = ! showDetails"></a> 
-        <div class="procedure-details" ng-class="{ 'hidden': ! showDetails }">
-          <span class="glyphicon glyphicon-thumbs-up">I show up when your checkbox is checked.</span> 
-          <p> 
-              Date : {{item.tags}}  <br>
-              Filter :{{ item.filter}} <br>
-              Likes: {{ item.comments}} <br>
-              <a href='{{item.likes}' target="_blank"> Go to Instagram</a>
-              <button class="btn btn-success" ng-click="addToAlbum()">Add</button>
-              <a href="{{item.sourceURL}}"></a> 
-          </p>
-        </div>
+      <div class="imagelist-right imageResults" >
+        <span class="results instagram-li li-add" ng-repeat="item in images | orderBy:'-likes' | filter:search">
+          <div class="results-img" ng-click="addToAlbum()">
+            <img class="addItemImage" src="{{item.image}}" alt="">
+            <p>{{formatDate()}}</p>
+            <a href="#" ng-click="showDetails = ! showDetails"></a> 
+            <div class="procedure-details" ng-class="{ 'hidden': ! showDetails }">
+              <span class="glyphicon glyphicon-thumbs-up">I show up when your checkbox is checked.</span> 
+              <p> 
+                  Date : {{item.tags}}  <br>
+                  Filter :{{ item.filter}} <br>
+                  Likes: {{ item.comments}} <br>
+                  <a href='{{item.likes}' target="_blank"> Go to Instagram</a>
+                  <button class="btn btn-success" ng-click="addToAlbum()">Add</button>
+                  <a href="{{item.sourceURL}}"></a> 
+              </p>
+            </div>
+          </div>
       </div>
-        </div>
+        <button class="btn btn-success" src="{{olderURL}}" ng-click="loadMoreImages()">Load More Images</button>
     </div>
   </span>
 </div>

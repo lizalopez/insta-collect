@@ -7,6 +7,7 @@ module.exports = function(app, express) {
   app.post('/signup', DBcontroller.signup);
 
   app.get('/images', controller.fetchImages);
+  app.get('/olderImages', controller.fetchOlderImageBatch);
   // app.get('/album/:id', DBcontroller.accessAlbum, DBcontroller.fetchAlbumImages);
   app.get('/album/:id', DBcontroller.fetchAlbumImages);
   app.get('/albums', DBcontroller.getAllAlbums);

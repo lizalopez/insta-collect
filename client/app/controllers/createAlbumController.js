@@ -21,11 +21,12 @@ angular.module('app.create', ['app.services'])
         // endDate: unixTime($scope.formData.endDate)
       };
       var JSONformData = JSON.stringify(dataToFetch);
-      console.log("JSONED DATA", JSONformData);
+      // console.log("JSONED DATA", JSONformData);
       $http.get('/images?hashtag=' + dataToFetch.hashtag + '&startDate='+ dataToFetch.startDate + '&endDate='+ dataToFetch.endDate) 
         .then(function(data) {
-          console.log("FETCHED DATA:", data.data);
-          $scope.images = data.data;
+          var itemsOnly = data.data.slice(0, data.data.length-1);
+          $scope.images = itemsOnly;
+          $scope.olderURL = data.data[data.data.length-1];
         })
         .catch(function(err) {
           console.log("Error Fetching Inital Batch Images:", err);
@@ -68,7 +69,22 @@ angular.module('app.create', ['app.services'])
     })
   };
 
+  $scope.loadMoreImages = function() {
+    $http.get('/olderImages?url='+$scope.olderURL)
+    .then(function(data) {
+      var itemsOnly = data.data.slice(0, data.data.length-1);
+      $scope.images = itemsOnly;
+      $scope.olderURL = data.data[data.data.length-1];
+    })
+    .catch(function(err) {
+      console.log("Error Fetching Older Batch Images:", err);
+    })
+  };
+    //use albumData's nextURL property
+  $scope.olderURL = {};
 });
+
+
 
 var formatDate = function(d) {
   d = Number(d* 1000);

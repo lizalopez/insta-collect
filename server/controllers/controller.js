@@ -1,5 +1,6 @@
 var request = require('request');
 var Promise = require('bluebird');
+var keys = require('../env/keys');
 
 var formatDate = function(d) {
   d = Number(d* 1000);
@@ -17,6 +18,8 @@ var formatDate = function(d) {
 var filterImageData = function(responseObj) {
   return responseObj.reduce(function(imageDataCollection, item) {
     var formattedDate = formatDate(item.created_time);
+    var video;
+    video = (item.type === 'video' ? item.videos.standard_resolution.url : null);
     var image = {
       tags : item.tags,
       username : item.user.username,
@@ -26,7 +29,8 @@ var filterImageData = function(responseObj) {
       comments : item.comments.data,
       image : item.images.standard_resolution.url,
       sourceURL: item.link,
-      video: item.videos.standard_resolution.url || null
+      type: item.type,
+      video: video
     };
     imageDataCollection.push(image);
     return imageDataCollection;
@@ -36,47 +40,61 @@ var filterImageData = function(responseObj) {
 module.exports = {
   paginateAPI: function(currentDate, startDate, endDate, olderDataUrl) {
     var paginateResults;
-    console.log("PAGINATTING!", "CURRENTDATE--endDate---startDate-->", currentDate, endDate, startDate, 'OLDERDATAurl----->', olderDataUrl);
-      request(olderDataUrl, function(err, response, paginateBody) {
-        var body= JSON.parse(paginateBody);
-        if (currentDate > endDate) {
-        console.log('have not reached endDate, need to keep paginating to olderURL');
-        //have not reached endDate, need to keep paginating to olderURL
-          if (!err && body.meta.code === 200) {
-            newCurrentDate = body.data[0].created_time;
-            newOlderDataUrl = body.pagination.next_url;
-            console.log("CURRENT DATE AFTER >>>>>>>>>>", newCurrentDate);
-            console.log("WILL PAGINATE API WITH:", newOlderDataUrl);
-            module.exports.paginateAPI(newCurrentDate, startDate, endDate, newOlderDataUrl);
-          } else {
-            return ("Error in paginating", err);
-          }
+    request(olderDataUrl, function(err, response, paginateBody) {
+      var body= JSON.parse(paginateBody);
+      if (currentDate > endDate) {
+      console.log('have not reached endDate, need to keep paginating to olderURL');
+      //have not reached endDate, need to keep paginating to olderURL
+        if (!err && body.meta.code === 200) {
+          newCurrentDate = body.data[0].created_time;
+          newOlderDataUrl = body.pagination.next_url;
+          module.exports.paginateAPI(newCurrentDate, startDate, endDate, newOlderDataUrl);
         } else {
-          console.log('paginating reached startDate');
-          var paginatePromise = new Promise (function(resolve, reject) { 
-            var filteredResults = filterImageData(body.data);
-            resolve(filteredResults);
-          });
+          return ("Error in paginating", err);
+        }
+      } else {
+        console.log('paginating reached startDate');
+        var paginatePromise = new Promise (function(resolve, reject) { 
+          var filteredResults = filterImageData(body.data);
+          resolve(filteredResults);
+        });
 
-          paginatePromise.then(function(filteredResults) {
-            paginateResults = filteredResults;
-            return paginateResults;
-          });
-        } 
-      });
+        paginatePromise.then(function(filteredResults) {
+          paginateResults = filteredResults;
+          return paginateResults;
+        });
+      } 
+    });
   },
-
+  fetchOlderImageBatch: function(req, res) {
+    var url = req.query.url;
+    return request(url, function(err, response, body) {
+        var metaResults = JSON.parse(body);
+        var imageResults = metaResults.data;
+        var filteredResults = filterImageData(imageResults);
+        Promise.all(filteredResults).then(function () {
+          filteredResults.push(metaResults.pagination.next_url);
+          console.log('NOW I HAE URS', filteredResults[filteredResults.length-1]);
+          res.send(JSON.stringify(filteredResults));               
+          // });
+        }).catch(function(err) {
+            console.log("Error in fetching next api images");
+        });
+      }); 
+  },
   fetchImages: function(req, res) {
     var tag = req.query.hashtag;
     var startDate = req.query.startDate;
     var endDate = req.query.endDate;
     var itemsInDateRange = [];
 
-      return request('https://api.instagram.com/v1/tags/'+tag+'/media/recent?access_token='+process.env.APITOKEN, function(err, response, body) {
+  //with process.env, swap key.token for process.env.APITOK
+      return request('https://api.instagram.com/v1/tags/'+tag+'/media/recent?access_token='+keys.token, function(err, response, body) {
           var metaResults = JSON.parse(body);
           var imageResults = metaResults.data;
-          var filteredResults= filterImageData(imageResults);
+          var filteredResults = filterImageData(imageResults);
           Promise.all(filteredResults).then(function () {
+            filteredResults.push(metaResults.pagination.next_url);
             res.send(JSON.stringify(filteredResults));               
             // });
           }).catch(function(err) {

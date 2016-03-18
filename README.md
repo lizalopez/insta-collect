@@ -1,6 +1,7 @@
 # insta-collect
 Instagram Collection App
 
+To SetUp:
 1. npm install
 2. bower install
 3. npm start
@@ -8,9 +9,9 @@ Instagram Collection App
 
 
 To Do:
-1 |  Display all album details on album view (name, hashtag).
-2 | If item is video, enable playing mode. If type is image, add a 'play' glyphicon on hover over item section.
-3 | Unit and Integration tests.
+1 | Create button enabling users to paginate to older set of URL.
+2 | Unit and Integration tests.
+3 | If item is video, enable playing mode. If type is image, add a 'play' glyphicon on hover over item section.
 4 | Paginate fully (current setup can reach end date that user specifies, but because it's done via recursion, is not sending response to client properly).
 5 | Deploy.
 6 | Add MaterialUI component to render miniCalendar dropdown for date ranges.
