@@ -25,7 +25,8 @@ var filterImageData = function(responseObj) {
       likes : item.likes.count,
       comments : item.comments.data,
       image : item.images.standard_resolution.url,
-      link: item.link
+      sourceURL: item.link,
+      video: item.videos.standard_resolution.url || null
     };
     imageDataCollection.push(image);
     return imageDataCollection;

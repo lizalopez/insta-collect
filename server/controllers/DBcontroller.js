@@ -7,8 +7,7 @@ var keys = require('../env/keys');
 
 var imagesInDBToAddToAlbum = [];
 var currentAlbumToSave = {};
-var designatedAlbum = {};
-designatedAlbum.images = [];
+
 
 module.exports = {
   saveImages: function(req, res) {
@@ -37,7 +36,7 @@ module.exports = {
     tag: req.body.tag,
     albumImage: req.body.albumImage
   }
-  console.log('ALBUM TO CREATE >>>> ', album);
+  // console.log('ALBUM TO CREATE >>>> ', album);
   var createAlbumQuery = client.query("INSERT INTO Albums (name, tag, albumImage) VALUES ('"+album.name+"','"+album.tag+"','"+album.albumImage+"') RETURNING ID;", function(err, data) {
     if (err) {
       console.log('Error in saving album to DB:', err);
@@ -53,7 +52,7 @@ module.exports = {
   });
   },
   getAllAlbums: function(req, res) {
-    console.log("HIT GET ALL ALBUMS!");
+    // console.log("HIT GET ALL ALBUMS!");
     var client = new pg.Client(connectionString);
     client.connect();
     var albumCollection = [];
@@ -65,9 +64,9 @@ module.exports = {
       res.status(200).json(albumCollection);
     });
   },
-  accessAlbum: function(req, res, next) {
-    var albumID = req.params.id;
-    console.log("ID #######", albumID);
+  accessAlbum: function(albumID) {
+    // var albumID = req.params.id;
+    // console.log("ID #######", albumID);
     var client = new pg.Client(connectionString);
     client.connect();
     var getAlbumQuery = client.query("SELECT *  FROM Albums WHERE ID="+albumID+";");
@@ -75,20 +74,40 @@ module.exports = {
       designatedAlbum.data = row;
     });
     getAlbumQuery.on('end', function(data) {
-      console.log("ONE ALBUM D___________", designatedAlbum);
-      next();
+      // console.log("ONE ALBUM D___________", designatedAlbum);
+      return designatedAlbum;
     });
   },
   fetchAlbumImages: function(req, res) {
+    var designatedAlbum = {};
+    designatedAlbum.items = [];
     var albumID = req.params.id;
+
     var client = new pg.Client(connectionString);
     client.connect();
-    var getAlbumImagesQuery = client.query("SELECT *  FROM Images WHERE ID="+albumID+";");
-    getAlbumImagesQuery.on('row', function(row) {
-      designatedAlbum.images.push(row);
+    var getAlbumQuery = client.query("SELECT *  FROM Albums WHERE ID="+albumID+";");
+    getAlbumQuery.on('row', function(row) {
+      designatedAlbum.data = row;
     });
-    getAlbumImagesQuery.on('end', function(data) {
-      res.status(200).json(designatedAlbum);
+    getAlbumQuery.on('end', function(data) {
+      // console.log("ONE ALBUM D___________", designatedAlbum);
+      // console.log('designagtealbumDATA::::::::::::', designatedAlbum);
+      
+      var client = new pg.Client(connectionString);
+      client.connect();
+      var getAlbumImagesQuery = client.query("SELECT *  FROM Images WHERE ALBUMID="+albumID+";");
+      //   , function(err, result) {
+      //   console.log("WITH A CALLBACK:", result);
+      // });
+      getAlbumImagesQuery.on('row', function(row, result) {
+        // designatedAlbum.images.push(row);
+        // result.addRow(row);
+        designatedAlbum.items.push(row);
+      });
+      getAlbumImagesQuery.on('end', function(data) {
+        // console.log('IMAGEquery ended @@@@@ @@@', designatedAlbum);
+        res.status(200).json(designatedAlbum);
+      });
     });
   },
   accessUser: function(req, res) {
@@ -110,7 +129,7 @@ module.exports = {
     client.connect();
     var loginUserData;
     var userExists = false;
-    console.log('Logging in', req.body.username);
+    // console.log('Logging in', req.body.username);
     var loginUserQuery = client.query("SELECT * FROM Users WHERE USERNAME='"+req.body.username+"' AND password = crypt('"+req.body.password+"', password);");
     loginUserQuery.on('row', function(row) {
       userExists = true;
@@ -118,10 +137,10 @@ module.exports = {
     });
     loginUserQuery.on('end', function(results) {
       if (!userExists) {
-        console.log("Username or password is incorrect");
+        // console.log("Username or password is incorrect");
         res.status(400).json("Username or password is incorrect");
       } else {
-        console.log("USER LOGGED in ----", loginUserData)
+        // console.log("USER LOGGED in ----", loginUserData)
         res.status(201).json(loginUserData);
       }
     });  
@@ -129,14 +148,14 @@ module.exports = {
   signup: function(req, res) {
     var client = new pg.Client(connectionString);
     client.connect();
-    console.log('Signing up', req.body.username);
+    // console.log('Signing up', req.body.username);
     var createdUserData;
     var userExists = false;
     //check if username already exists
     var checkUserQuery = client.query("SELECT * FROM Users WHERE USERNAME='"+req.body.username+"';");
     checkUserQuery.on('row', function(row) {
       userExists = true;
-      console.log('USER ExISTS:::', row);
+      // console.log('USER ExISTS:::', row);
     });
     checkUserQuery.on('end', function(results) {
       if (userExists) {
@@ -147,7 +166,7 @@ module.exports = {
           createdUserData = row;
         });
         createUserQuery.on('end', function(results) {
-          console.log('CREATED USER+++++', createdUserData);
+          // console.log('CREATED USER+++++', createdUserData);
           res.status(200).json(createdUserData);
         });
       }

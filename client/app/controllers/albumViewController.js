@@ -7,11 +7,10 @@ angular.module('app.album', ['app.services'])
   $scope.getAlbumData = function(id) {
     return $http.get('/album/' + id)
     .then(function(results) {
-      var item = results.data;
-      console.log('Album data:', results);
-      $scope.name = item.data.name;
-      $scope.tag = item.data.tag;
-      $scope.images = item.images;
+      var items = results.data;
+      $scope.name = items.data.name;
+      $scope.tag = items.data.tag;
+      $scope.images = items.items;
     })
     .catch(function(err) {
       console.log('Error getting album data:', err);

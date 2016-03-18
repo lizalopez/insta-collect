@@ -24,7 +24,9 @@ module.exports = {
  createImagesTable: 'CREATE TABLE IF NOT EXISTS Images' +
   '(' +
   'id SERIAL NOT NULL PRIMARY KEY,' +
-  'username VARCHAR(255),' +
+  'type varchar(25),' +
+  // 'username VARCHAR(255),' +
+  'video varchar (455),' +
   "image varchar(255) DEFAULT 'http://lh4.ggpht.com/iEyogFzb2gMbVBLSjgPL0qSETW76pRG1hQYRjLOnmU4JDgMdc65v53OZ3WWSvuRO_kY'," +
   'tags varchar(255) [],' +
   'likes int,' +
