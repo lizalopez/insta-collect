@@ -3,7 +3,7 @@ module.exports = {
   createUsersTable: 'CREATE TABLE IF NOT EXISTS Users' +
     '(' +
     'id SERIAL NOT NULL PRIMARY KEY,' +
-    'name VARCHAR(255),' +
+    'username VARCHAR(255),' +
     'albums varchar(400) [],' +
     // 'email VARCHAR(255) NOT NULL,' +
     // "photo varchar(455) DEFAULT 'https://d30y9cdsu7xlg0.cloudfront.net/png/2958-200.png'," +

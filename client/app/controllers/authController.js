@@ -1,7 +1,7 @@
 angular.module('app.auth', ['app.services'])
 
-.controller('AuthController', function ($scope, $http, $location) {
-  var auth = {};
+.controller('AuthController', function ($scope, $http, $location, Auth) {
+  // var auth = {};
   $scope.login = function (user) {
     $scope.error = '';
     if(!user) {
@@ -11,24 +11,30 @@ angular.module('app.auth', ['app.services'])
       };
     } 
     console.log("Attempting to login", userData);
-    return $http.post('/login', user)
-      .then(function(result){
-        console.log("Auth Login Hit")
-        if(result.data){
-          console.log("login results", result)
-          console.log("Username", user.username)
-          $scope.getUser(user.username)
-          .then(function() {
-            auth.clearPassword();
-            $location.path("/myAlbums");
-          });
-        } else {
-          //stay on login
-          var loginError = "Please Try Again"
-          return loginError;
-        }
-      })
-    $location.path('/');
+
+    Auth.login(userData)
+      .then(function(message){
+          $scope.clearFields();
+          $scope.error = message;
+    })
+    // return $http.post('/login', user)
+    //   .then(function(result){
+    //     console.log("Auth Login Hit")
+    //     if(result.data){
+    //       console.log("login results", result)
+    //       console.log("Username", user.username)
+    //       $scope.getUser(user.username)
+    //       .then(function() {
+    //         auth.clearPassword();
+    //         $location.path("/myAlbums");
+    //       });
+    //     } else {
+    //       //stay on login
+    //       var loginError = "Please Try Again"
+    //       return loginError;
+    //     }
+    //   })
+    // $location.path('/');
 
   };
   $scope.getuser = function(username) {
@@ -42,39 +48,37 @@ angular.module('app.auth', ['app.services'])
   $scope.signup = function () {
     $scope.signUpError = '';
     var userData = {
-      "username":$scope.signUpUsername,
-      "password":$scope.signUpPassword
+      "username": $scope.signUpUsername,
+      "password": $scope.signUpPassword,
+      "confirmPassword": $scope.confirmPassword
     }
     console.log('User entered signup data',userData)
     // <h4> Auth.signup </h4>
     // Is a function that posts to /signup to log the user in
-    auth.pass = userData.password;
-    return $http.post('/signup', userData)
-    .then(function(message){
-      $location.path('/');
-      if(Array.isArray(result.data)){
-        var signUpError = "Username Taken";
-        return signUpError;
-      } else {
-        auth.user = result.data;
-        auth.user.password = auth.pass;
-        auth.login(auth.user);
-      }
-    })
-    .then(function(message) {
-      $scope.clearFields();
-      $scope.signUpError = message;
-    })
-
-  $scope.clearFields = function (){
-    $scope.signUpUsername='';
-    $scope.signUpPassword='';
-    $scope.username='';
-    $scope.password='';
-  };
-
-  };
-
+    Auth.signup(userData)
+      .then(function(message){
+        $scope.clearFields();
+        $scope.signUpError = message;
+      })
+    };
+    // auth.pass = userData.password;
+    // return $http.post('/signup', userData)
+    // .then(function(message){
+    //   $location.path('/');
+    //   if(Array.isArray(result.data)){
+    //     var signUpError = "Username Taken";
+    //     return signUpError;
+    //   } else {
+    //     auth.user = result.data;
+    //     auth.user.password = auth.pass;
+    //     auth.login(auth.user);
+    //   }
+    // })
+    // .then(function(message) {
+    //   $scope.clearFields();
+    //   $scope.signUpError = message;
+    // })
+  // };
   // function that clears all the text input fields
   $scope.clearFields = function (){
     $scope.signUpUsername='';
